@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+}
+
+*:not(a) {
+  font-family: monospace;
+  font-size: large;
+  color: aliceblue;
+  background: black;
+}
+
+main {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+svg {
+  height: 101px;
+}
