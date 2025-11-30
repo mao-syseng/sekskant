@@ -1,21 +1,55 @@
+:root {
+  --main: aliceblue;
+}
+
 body {
   margin: 0;
-}
-
-*:not(a) {
-  font-family: monospace;
-  font-size: large;
-  color: aliceblue;
-  background: black;
-}
-
-main {
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-svg {
-  height: 101px;
+*:not(a) {
+  font-family: monospace;
+  font-size: large;
+  color: var(--main);
+  background: black;
+}
+
+/* Hexagon grid in css: https://css-tricks.com/hexagons-and-beyond-flexible-responsive-grid-patterns-sans-media-queries/ */
+#app {
+  height: 754px; /* hardcoded so layout does not shift */
+  width:  884px;
+  overflow: hidden;
+  display: flex;
+  --s: 100px; /* size  */
+  --m: 2px; /* margin */
+  --f: calc(1.732 * var(--s) + 4 * var(--m) - 1px);
+}
+
+.container {
+  font-size: 0; /*disable white space between inline block element */
+}
+
+.container div {
+  width: var(--s);
+  margin: var(--m);
+  height: calc(var(--s) * 1.1547);
+  display: inline-block;
+  font-size: initial;
+  clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
+  background: var(--main);
+  margin-bottom: calc(var(--m) - var(--s) * 0.2885);
+}
+
+.container::before {
+  content: "";
+  width: calc(var(--s) / 2 + var(--m));
+  float: left;
+  height: 120%;
+  shape-outside: repeating-linear-gradient(
+    #0000 0 calc(var(--f) - 3px),
+    #000 0 var(--f)
+  );
 }

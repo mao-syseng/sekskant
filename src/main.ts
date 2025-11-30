@@ -1,19 +1,16 @@
 import "./style.css";
 
-const c1 = 'hotpink';
-const c2 = 'black';
-const c3 = 'FloralWhite';
-const hexSvg = `<svg viewBox="0 0 86.6 100"><polygon fill="${c1}" points="43.3,0 86.6,25 86.6,75 43.3,100 0,75 0,25" /></svg>`;
-
+const gridSize = 8;
+const totalHexagons = gridSize * gridSize;
 
 function addHexagons(count: number): void {
-  const app = document.querySelector<HTMLDivElement>("#app");
+  const app = document.querySelector<HTMLDivElement>(".container");
   if (!app) throw new Error("Could not find app div");
-  let html = '';
+  let html = "";
   for (let i = 0; i < count; i++) {
-    html += hexSvg;
+    html += document.createElement("div").outerHTML;
   }
   app.innerHTML = html;
 }
 
-addHexagons(5);
+addHexagons(totalHexagons);
