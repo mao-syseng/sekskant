@@ -1,5 +1,10 @@
 :root {
-  --main: aliceblue;
+  --bl: #2C2C2A;
+  --pu: #A07CFF;
+  --wh: #FFF3F3;
+  --s: 100px; /* size  */
+  --m: 0px; /* margin */
+  --f: calc(1.732 * var(--s) + 4 * var(--m) - 1px);
 }
 
 body {
@@ -10,22 +15,19 @@ body {
   justify-content: center;
 }
 
-*:not(a) {
+* {
   font-family: monospace;
   font-size: large;
-  color: var(--main);
+  color: var(--pu);
   background: black;
 }
 
 /* Hexagon grid in css: https://css-tricks.com/hexagons-and-beyond-flexible-responsive-grid-patterns-sans-media-queries/ */
 #app {
   height: 754px; /* hardcoded so layout does not shift */
-  width:  884px;
+  width:  833px;
   overflow: hidden;
   display: flex;
-  --s: 100px; /* size  */
-  --m: 2px; /* margin */
-  --f: calc(1.732 * var(--s) + 4 * var(--m) - 1px);
 }
 
 .container {
@@ -39,8 +41,14 @@ body {
   display: inline-block;
   font-size: initial;
   clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
-  background: var(--main);
+  background: var(--pu);
   margin-bottom: calc(var(--m) - var(--s) * 0.2885);
+}
+.container div:nth-child(3n+2) {
+  background: var(--wh);
+}
+.container div:nth-child(3n) {
+  background: var(--bl);
 }
 
 .container::before {
