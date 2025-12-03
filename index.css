@@ -1,7 +1,7 @@
 :root {
-  --bl: #2C2C2A;
-  --pu: #A07CFF;
-  --wh: #FFF3F3;
+  --c1: #2C2C2A;
+  --c2: #A07CFF;
+  --c3: #FFF3F3;
   --s: 100px; /* size  */
   --m: 0px; /* margin */
   --f: calc(1.732 * var(--s) + 4 * var(--m) - 1px);
@@ -22,9 +22,33 @@ body {
   background: black;
 }
 
+.player {
+  background: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80px;
+  pointer-events: none;
+}
+
+.player circle {
+  fill: var(--hex-color, var(--c2));
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    r: 40;
+  }
+  50% {
+    r: 35;
+  }
+}
+
 /* Hexagon grid in css: https://css-tricks.com/hexagons-and-beyond-flexible-responsive-grid-patterns-sans-media-queries/ */
 #app {
-  height: 754px; /* hardcoded so layout does not shift */
+  height: 723px; /* hardcoded so layout does not shift */
   width:  833px;
   overflow: hidden;
   display: flex;
@@ -35,20 +59,24 @@ body {
 }
 
 .container div {
+  position: relative;
   width: var(--s);
   margin: var(--m);
   height: calc(var(--s) * 1.1547);
   display: inline-block;
   font-size: initial;
   clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
-  background: var(--pu);
+  background: var(--c1);
+  --hex-color: var(--c3);
   margin-bottom: calc(var(--m) - var(--s) * 0.2885);
 }
 .container div:nth-child(3n+2) {
-  background: var(--wh);
+  background: var(--c2);
+  --hex-color: var(--c1);
 }
 .container div:nth-child(3n) {
-  background: var(--bl);
+  background: var(--c3);
+  --hex-color: var(--c2);
 }
 
 .container::before {

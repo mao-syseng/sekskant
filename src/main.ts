@@ -1,53 +1,54 @@
-import "./style.css";
+import { getHexByAxial, getNeighborOffset, type AxialCoords } from "./hexagon";
 
-interface OffsetCoords {
-  row: number;
-  col: number;
-}
+const playerSvg = `<svg class="player" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" /></svg>`
+let playerPosition: AxialCoords = { q: 2, r: 2 };
 
-interface AxialCoords {
-  q: number;
-  r: number;
-}
-
-const totalHexagons = 8 * 8 - 4; // 8 rows of 8 hexagons, minus 4 to account for the staggered layout
-
-function addHexagons(count: number): void {
-  const app = document.querySelector<HTMLDivElement>(".container");
-  if (!app) throw new Error("Could not find app div");
-  let html = "";
-  for (let i = 0; i < count; i++) {
-    html += document.createElement("div").outerHTML;
+function renderPlayer(coords: AxialCoords): void {
+  // Clear previous player
+  document.querySelectorAll('.player').forEach(el => el.remove());
+  
+  const hex = getHexByAxial(coords);
+  if (hex) {
+    hex.innerHTML = playerSvg;
   }
-  app.innerHTML = html;
 }
 
-addHexagons(totalHexagons);
-
-// Offset coordinates: https://www.redblobgames.com/grids/hexagons/#coordinates-offset
-function indexToHexOffset(index: number): OffsetCoords {
-  const evenRowCols = 8; // rows 0,2,4,6
-  const oddRowCols = 7; // rows 1,3,5,7
-
-  let row = 0;
-  let remaining = index;
-
-  // Determine which row the index falls into
-  while (true) {
-    const colsInRow = row % 2 === 0 ? evenRowCols : oddRowCols;
-    if (remaining < colsInRow) break;
-    remaining -= colsInRow;
-    row++;
+function movePlayer(direction: string): void {
+  const offset = getNeighborOffset(playerPosition.r, direction);
+  const newPosition = {
+    q: playerPosition.q + offset.dq,
+    r: playerPosition.r + offset.dr,
+  };
+  
+  // Check if the new position exists
+  if (getHexByAxial(newPosition)) {
+    playerPosition = newPosition;
+    renderPlayer(playerPosition);
   }
-
-  const col = remaining;
-
-  return { row, col };
 }
 
-// Axial coordinates: https://www.redblobgames.com/grids/hexagons/#coordinates-axial
-function offsetToAxial({ row, col }: OffsetCoords): AxialCoords {
-  const q = col - ((row - (row & 1)) >> 1);
-  const r = row;
-  return { q, r };
-}
+// Keyboard controls
+document.addEventListener('keydown', (e) => {
+  switch (e.key.toLowerCase()) {
+    case 'q':
+      movePlayer('nw');
+      break;
+    case 'w':
+      movePlayer('ne');
+      break;
+    case 'e':
+      movePlayer('e');
+      break;
+    case 'a':
+      movePlayer('sw');
+      break;
+    case 's':
+      movePlayer('se');
+      break;
+    case 'd':
+      movePlayer('w');
+      break;
+  }
+});
+
+renderPlayer(playerPosition);
