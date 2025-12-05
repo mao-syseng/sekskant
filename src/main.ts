@@ -30,23 +30,23 @@ function movePlayer(direction: string): void {
 // Keyboard controls
 document.addEventListener('keydown', (e) => {
   switch (e.key.toLowerCase()) {
-    case 'q':
+    case 'w':
       movePlayer('nw');
       break;
-    case 'w':
+    case 'e':
       movePlayer('ne');
       break;
-    case 'e':
+    case 'd':
       movePlayer('e');
       break;
     case 'a':
+      movePlayer('w');
+      break;
+    case 'z':
       movePlayer('sw');
       break;
-    case 's':
+    case 'x':
       movePlayer('se');
-      break;
-    case 'd':
-      movePlayer('w');
       break;
   }
 });

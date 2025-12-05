@@ -1,10 +1,8 @@
 :root {
-  --c1: #2C2C2A;
-  --c2: #A07CFF;
-  --c3: #FFF3F3;
-  --s: 100px; /* size  */
-  --m: 0px; /* margin */
+  --s: 100px; /* hex size  */
+  --m: 0px; /* hex margin */
   --f: calc(1.732 * var(--s) + 4 * var(--m) - 1px);
+  --bg-size: 25px;
 }
 
 body {
@@ -13,13 +11,17 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: black;
+  background-image: radial-gradient(seashell 0.5px, transparent 0.5px),
+    radial-gradient(seashell 0.5px, black 0.5px);
+  background-size: var(--bg-size) var(--bg-size);
+  background-position: 0 0, calc(var(--bg-size) / 2) calc(var(--bg-size) / 2);
 }
 
 * {
   font-family: monospace;
   font-size: large;
   color: var(--pu);
-  background: black;
 }
 
 .player {
@@ -33,12 +35,13 @@ body {
 }
 
 .player circle {
-  fill: var(--hex-color, var(--c2));
+  fill: var(--hex-color, hotpink);
   animation: pulse 2s ease-in-out infinite;
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     r: 40;
   }
   50% {
@@ -49,7 +52,7 @@ body {
 /* Hexagon grid in css: https://css-tricks.com/hexagons-and-beyond-flexible-responsive-grid-patterns-sans-media-queries/ */
 #app {
   height: 723px; /* hardcoded so layout does not shift */
-  width:  833px;
+  width: 833px;
   overflow: hidden;
   display: flex;
 }
@@ -66,17 +69,17 @@ body {
   display: inline-block;
   font-size: initial;
   clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
-  background: var(--c1);
-  --hex-color: var(--c3);
+  background: black;
+  --hex-color: seashell;
   margin-bottom: calc(var(--m) - var(--s) * 0.2885);
 }
-.container div:nth-child(3n+2) {
-  background: var(--c2);
-  --hex-color: var(--c1);
+.container div:nth-child(3n + 2) {
+  background: hotpink;
+  --hex-color: black;
 }
 .container div:nth-child(3n) {
-  background: var(--c3);
-  --hex-color: var(--c2);
+  background: seashell;
+  --hex-color: hotpink;
 }
 
 .container::before {
