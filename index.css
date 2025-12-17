@@ -1,59 +1,42 @@
 :root {
+  --c1: seashell;
+  --c2: black;
   --s: 100px; /* hex size  */
-  --m: 0px; /* hex margin */
+  --m: 1px; /* hex margin */
   --f: calc(1.732 * var(--s) + 4 * var(--m) - 1px);
   --bg-size: 25px;
 }
 
 body {
   margin: 0;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: black;
-  background-image: radial-gradient(seashell 0.5px, transparent 0.5px),
-    radial-gradient(seashell 0.5px, black 0.5px);
+  background-color: var(--c2);
+  background-image: radial-gradient(var(--c1) 0.5px, transparent 0.5px),
+    radial-gradient(var(--c1) 0.5px, var(--c2) 0.5px);
   background-size: var(--bg-size) var(--bg-size);
   background-position: 0 0, calc(var(--bg-size) / 2) calc(var(--bg-size) / 2);
+  overflow: auto;
 }
 
-* {
-  font-family: monospace;
-  font-size: large;
-  color: var(--pu);
-}
-
-.player {
-  background: none;
+#player {
   position: absolute;
-  height: 80px;
-  pointer-events: none;
-  transition: top 0.2s ease-out, left 0.2s ease-out;
-}
-
-.player circle {
-  fill: var(--hex-color, hotpink);
-  animation: pulse 5s ease-in-out infinite;
-  transition: fill 0.2s ease-out;
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    r: 50;
-  }
-  50% {
-    r: 10;
-  }
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 100%;
+  font-size: calc(var(--s) / 3);
 }
 
 /* Hexagon grid in css: https://css-tricks.com/hexagons-and-beyond-flexible-responsive-grid-patterns-sans-media-queries/ */
 #app {
-  height: 723px; /* hardcoded so layout does not shift */
+  height: 740px; /* hardcoded so layout does not shift */
   width: 833px;
   overflow: hidden;
   display: flex;
+  flex-shrink: 0;
 }
 
 .container {
@@ -69,17 +52,8 @@ body {
   display: inline-block;
   font-size: initial;
   clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
-  background: black;
-  --hex-color: seashell;
+  background: var(--c1);
   margin-bottom: calc(var(--m) - var(--s) * 0.2885);
-}
-.container div:nth-child(3n + 2) {
-  background: hotpink;
-  --hex-color: black;
-}
-.container div:nth-child(3n) {
-  background: seashell;
-  --hex-color: hotpink;
 }
 
 .container::before {
